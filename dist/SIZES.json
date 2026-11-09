@@ -1,0 +1,75 @@
+{
+ "version": "0.1.0",
+ "core_gzip_budget": 25600,
+ "core_ok": true,
+ "files": {
+  "formats/chunks/chunk-F4533EDT.js": {
+   "bytes": 1000,
+   "gzip": 598
+  },
+  "formats/chunks/chunk-IASTZO2J.js": {
+   "bytes": 98020,
+   "gzip": 30209
+  },
+  "formats/chunks/chunk-SEZRW5KK.js": {
+   "bytes": 548,
+   "gzip": 354
+  },
+  "formats/chunks/chunk-YNDUCXLW.js": {
+   "bytes": 363,
+   "gzip": 283
+  },
+  "formats/chunks/chunk-ZGED6OEB.js": {
+   "bytes": 7813,
+   "gzip": 3635
+  },
+  "formats/chunks/chunk-ZMIVMEKO.js": {
+   "bytes": 5397,
+   "gzip": 2618
+  },
+  "formats/csv.js": {
+   "bytes": 2682,
+   "gzip": 1400
+  },
+  "formats/docx.js": {
+   "bytes": 77284,
+   "gzip": 21245
+  },
+  "formats/ed25519.js": {
+   "bytes": 15180,
+   "gzip": 7167
+  },
+  "formats/odt.js": {
+   "bytes": 6513,
+   "gzip": 2628
+  },
+  "formats/parquet.js": {
+   "bytes": 176071,
+   "gzip": 94070
+  },
+  "formats/pdf.js": {
+   "bytes": 416737,
+   "gzip": 124577
+  },
+  "formats/pdf.worker.min.mjs": {
+   "bytes": 1232303,
+   "gzip": 363829
+  },
+  "formats/pptx.js": {
+   "bytes": 1262615,
+   "gzip": 402729
+  },
+  "formats/sheet.js": {
+   "bytes": 372418,
+   "gzip": 125107
+  },
+  "zovo-doc-viewer.iife.js": {
+   "bytes": 27182,
+   "gzip": 10435
+  },
+  "zovo-doc-viewer.js": {
+   "bytes": 26696,
+   "gzip": 10222
+  }
+ }
+}

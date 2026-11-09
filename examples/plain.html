@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Zovo Doc Viewer, plain HTML</title>
+<script type="module" src="https://cdn.jsdelivr.net/gh/theluckystrike/zovo-doc-viewer@v0.1.0/dist/zovo-doc-viewer.js"></script>
+<style>zovo-doc-viewer { --zdv-height: 80vh; }</style>
+</head>
+<body>
+<input type="file" id="pick">
+<zovo-doc-viewer id="viewer" src="report.docx" theme="auto" download="false"></zovo-doc-viewer>
+<script>
+const viewer = document.getElementById('viewer');
+document.getElementById('pick').addEventListener('change', (e) => viewer.load(e.target.files[0]));
+viewer.addEventListener('load', (e) => console.log('opened', e.detail.format, e.detail.pages));
+viewer.addEventListener('error', (e) => console.log('could not open', e.detail.code, e.detail.message));
+viewer.addEventListener('page', (e) => console.log('page', e.detail.page, 'of', e.detail.pages));
+</script>
+</body>
+</html>

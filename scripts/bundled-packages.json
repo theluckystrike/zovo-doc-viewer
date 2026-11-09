@@ -1,0 +1,18 @@
+[
+ "@noble/ed25519",
+ "@noble/hashes",
+ "docx-preview",
+ "echarts",
+ "fzstd",
+ "hyparquet",
+ "hyparquet-compressors",
+ "hysnappy",
+ "jszip",
+ "lodash",
+ "pdfjs-dist",
+ "pptx-preview",
+ "tslib",
+ "uuid",
+ "xlsx",
+ "zrender"
+]

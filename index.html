@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>View DOCX, XLSX, Parquet and PDF in the Browser Without Upload | Zovo Doc Viewer</title>
+<meta name="description" content="Open DOCX, ODT, XLSX, XLS, CSV, Parquet, PDF and PPTX files right in your browser. Nothing is uploaded. Free online viewer and an embeddable web component for your own site.">
+<link rel="canonical" href="https://theluckystrike.github.io/zovo-doc-viewer/">
+<meta property="og:title" content="View DOCX, XLSX, Parquet and PDF in the browser without upload">
+<meta property="og:description" content="A document viewer that reads files on your own computer. One web component for DOCX, XLSX, CSV, Parquet, PDF and PPTX.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://theluckystrike.github.io/zovo-doc-viewer/">
+<meta property="og:image" content="https://theluckystrike.github.io/zovo-doc-viewer/images/social.png">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="images/icon.svg" type="image/svg+xml">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Zovo Doc Viewer","applicationCategory":"DeveloperApplication","operatingSystem":"Any (web browser)","description":"Web component that shows DOCX, ODT, XLSX, XLS, ODS, CSV, TSV, Parquet, PDF and PPTX files in the browser without uploading them.","url":"https://theluckystrike.github.io/zovo-doc-viewer/","license":"https://www.gnu.org/licenses/gpl-3.0.html","offers":[{"@type":"Offer","price":"0","priceCurrency":"USD","name":"GPL-3.0-or-later"},{"@type":"Offer","price":"79","priceCurrency":"USD","name":"Commercial licence, 1 project"},{"@type":"Offer","price":"199","priceCurrency":"USD","name":"Commercial licence, unlimited projects"}]}
+</script>
+<style>
+:root{--bg:#fff;--fg:#1f2328;--muted:#59636e;--line:#d1d9e0;--soft:#f6f8fa;--accent:#0969da;color-scheme:light}
+:root[data-theme=dark]{--bg:#0d1117;--fg:#e6edf3;--muted:#9198a1;--line:#3d444d;--soft:#151b23;--accent:#4493f8;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+header.top{display:flex;align-items:center;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+header.top .brand{font-weight:700;text-decoration:none;color:var(--fg)}
+header.top nav{margin-left:auto;display:flex;gap:16px;font-size:15px}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.15;margin:28px 0 10px}
+.lead{font-size:18px;color:var(--muted);max-width:760px;margin:0 0 18px}
+.controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:14px 0}
+.controls button,.controls label.btn,.controls select{font:inherit;font-size:14px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:6px;background:var(--soft);color:var(--fg);cursor:pointer;display:inline-flex;align-items:center}
+.controls button[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+.controls .primary{background:var(--accent);color:#fff;border-color:var(--accent)}
+.drop{position:relative}
+.drop.over::after{content:"Drop the file to open it here";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(9,105,218,.12);border:2px dashed var(--accent);border-radius:8px;font-size:20px;font-weight:600;color:var(--accent);pointer-events:none}
+zovo-doc-viewer{--zdv-height:min(78vh,820px)}
+.note{font-size:14px;color:var(--muted)}
+section{margin:44px 0}
+h2{font-size:26px;margin:0 0 12px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{border:1px solid var(--line);border-radius:8px;padding:16px;background:var(--soft)}
+.card h3{margin:0 0 6px;font-size:18px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+pre{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:14px;overflow:auto;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+table.formats{border-collapse:collapse;width:100%;font-size:15px}
+table.formats th,table.formats td{border-bottom:1px solid var(--line);padding:8px;text-align:left;vertical-align:top}
+.price{font-size:30px;font-weight:700;margin:6px 0}
+.price small{font-size:15px;font-weight:400;color:var(--muted)}
+.buy{display:inline-block;margin-top:12px;padding:8px 14px;border-radius:6px;background:var(--accent);color:#fff;text-decoration:none;font-weight:600}
+details{border-bottom:1px solid var(--line);padding:10px 0}
+summary{cursor:pointer;font-weight:600}
+footer{border-top:1px solid var(--line);margin-top:50px;padding:24px 0 40px;font-size:15px;color:var(--muted)}
+footer ul{padding-left:18px}
+</style>
+</head>
+<body>
+<header class="wrap top">
+  <a class="brand" href="./">Zovo Doc Viewer</a>
+  <nav><a href="#embed">Embed</a><a href="#formats">Formats</a><a href="#pricing">Pricing</a><a href="https://github.com/theluckystrike/zovo-doc-viewer">GitHub</a></nav>
+</header>
+<main class="wrap">
+  <h1>View DOCX, XLSX, Parquet and PDF files in your browser, without uploading them</h1>
+  <p class="lead">Drop a Word document, spreadsheet, CSV, Parquet file, PDF or PowerPoint deck on the viewer below. Your file is read by this page on your own computer. It is never sent to a server, so private files stay private.</p>
+
+  <div class="controls" role="group" aria-label="Viewer options">
+    <label class="btn primary" for="pick">Open a file</label>
+    <input id="pick" type="file" hidden accept=".docx,.docm,.dotx,.odt,.xlsx,.xlsm,.xlsb,.xls,.ods,.csv,.tsv,.parquet,.pq,.pdf,.pptx,.ppsx,.potx">
+    <span class="note">or try a sample:</span>
+    <button data-sample="samples/report.docx">DOCX</button>
+    <button data-sample="samples/report.odt">ODT</button>
+    <button data-sample="samples/budget.xlsx">XLSX</button>
+    <button data-sample="samples/orders.csv">CSV</button>
+    <button data-sample="samples/taxi-trips.parquet">Parquet</button>
+    <button data-sample="samples/earthquakes-october-2026.pdf">PDF</button>
+    <button data-sample="samples/quarterly-review.pptx">PPTX (beta)</button>
+    <select id="theme" aria-label="Theme"><option value="auto">Theme: auto</option><option value="light">Theme: light</option><option value="dark">Theme: dark</option></select>
+    <button id="dl" aria-pressed="true" title="Show or hide the download button">Download button: on</button>
+  </div>
+
+  <div class="drop" id="drop">
+    <zovo-doc-viewer id="viewer" theme="auto"></zovo-doc-viewer>
+  </div>
+  <p class="note" id="info" aria-live="polite">Formats: DOCX, ODT, XLSX, XLS, ODS, CSV, TSV, Parquet, PDF and PPTX (beta). Files up to 200 MB.</p>
+
+  <section id="why">
+    <h2>Why open files here</h2>
+    <div class="grid3">
+      <div class="card"><h3>No upload</h3><p>Online viewers that use Google or Microsoft send your file to their servers first. This one reads it in the page. Open the network tab in your browser tools to check.</p></div>
+      <div class="card"><h3>Large files</h3><p>Spreadsheets and CSV files show in a grid that draws only the rows on screen. A million-row CSV scrolls as fast as a short one. Parquet shows the first 100,000 rows and the schema.</p></div>
+      <div class="card"><h3>Works offline</h3><p>Once the page has loaded, you can switch off your network and keep opening files. Find, zoom, print and full screen all work without a connection.</p></div>
+    </div>
+  </section>
+
+  <section id="embed">
+    <h2>Add the viewer to your own site</h2>
+    <p>Zovo Doc Viewer is one custom element. It works in plain HTML, React, Vue, Svelte and any other framework. Each format loads its own code only when a file of that type is opened, so the element itself is about 10 KB gzipped.</p>
+<pre><code>&lt;script type="module" src="https://cdn.jsdelivr.net/gh/theluckystrike/zovo-doc-viewer@v0.1.0/dist/zovo-doc-viewer.js"&gt;&lt;/script&gt;
+
+&lt;zovo-doc-viewer src="/files/report.docx" theme="auto" download="false"&gt;&lt;/zovo-doc-viewer&gt;</code></pre>
+    <p>Open a file the user picked, with no server at all:</p>
+<pre><code>const viewer = document.querySelector('zovo-doc-viewer');
+input.addEventListener('change', () =&gt; viewer.load(input.files[0]));
+viewer.addEventListener('load', (e) =&gt; console.log(e.detail.format, e.detail.pages));
+viewer.addEventListener('error', (e) =&gt; console.log(e.detail.message));</code></pre>
+    <p>Attributes: <code>src</code>, <code>theme</code> (light, dark or auto), <code>download="false"</code>, <code>print="false"</code>, <code>toolbar="false"</code>, <code>filename</code>, <code>format</code>, <code>max-size</code> (MB), <code>base-url</code> and <code>license-key</code>. Full reference, React and Vue examples are in the <a href="https://github.com/theluckystrike/zovo-doc-viewer#readme">README</a>.</p>
+  </section>
+
+  <section id="formats">
+    <h2>Formats</h2>
+    <table class="formats">
+      <thead><tr><th>Files</th><th>What you get</th><th>Engine</th></tr></thead>
+      <tbody>
+        <tr><td>DOCX, DOCM, DOTX</td><td>Pages with headers, footers, footnotes, tables and pictures. Find, zoom, print.</td><td>docx-preview (Apache-2.0)</td></tr>
+        <tr><td>ODT</td><td>Headings, lists, tables, links and pictures from OpenDocument text.</td><td>Built in</td></tr>
+        <tr><td>XLSX, XLSM, XLSB, XLS, ODS</td><td>Sheet tabs, a fast grid, sort by column, find, copy a cell.</td><td>SheetJS CE (Apache-2.0)</td></tr>
+        <tr><td>CSV, TSV</td><td>Separator and encoding found for you, header row, up to 1,000,000 rows.</td><td>Built in</td></tr>
+        <tr><td>Parquet</td><td>First 100,000 rows and a schema tab. Snappy, Gzip, Zstd, Brotli and LZ4.</td><td>hyparquet (MIT)</td></tr>
+        <tr><td>PDF</td><td>Pages drawn as you scroll, text selection, find, zoom, print.</td><td>pdf.js (Apache-2.0)</td></tr>
+        <tr><td>PPTX, PPSX, POTX</td><td>Slides, in beta. Some shapes and charts may differ from PowerPoint.</td><td>pptx-preview (ISC)</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="pricing">
+    <h2>Pricing</h2>
+    <div class="grid3">
+      <div class="card"><h3>Open source</h3><div class="price">Free</div><p>GPL-3.0-or-later. For open-source projects, personal sites and anything on localhost. A small "Zovo Doc Viewer" link shows in the corner on public pages.</p><a class="buy" href="https://github.com/theluckystrike/zovo-doc-viewer">Get it on GitHub</a></div>
+      <div class="card"><h3>Commercial, 1 project</h3><div class="price">USD 79 <small>once</small></div><p>Use it in one closed-source site or app. The corner link goes away. No subscription.</p><a class="buy" href="https://github.com/sponsors/theluckystrike/sponsorships?tier_id=680015">Buy with GitHub Sponsors</a></div>
+      <div class="card"><h3>Commercial, unlimited</h3><div class="price">USD 199 <small>once</small></div><p>Every closed-source project your company makes. The corner link goes away. No subscription.</p><a class="buy" href="https://github.com/sponsors/theluckystrike/sponsorships?tier_id=680016">Buy with GitHub Sponsors</a></div>
+    </div>
+    <p class="note">Your key arrives within 1 working day. The key is checked in the browser and never calls a server. Terms: <a href="https://github.com/theluckystrike/zovo-doc-viewer/blob/main/COMMERCIAL.md">COMMERCIAL.md</a>.</p>
+  </section>
+
+  <section id="faq">
+    <h2>Questions</h2>
+    <details><summary>Is my file uploaded anywhere?</summary><p>No. The page reads the file with your browser and draws it on your screen. The only network requests are this page, the viewer code and, for the samples, the sample file.</p></details>
+    <details><summary>How do I view a DOCX file without Word?</summary><p>Click "Open a file" above, or drag the DOCX file onto the viewer. You get the pages as Word lays them out, with find and print.</p></details>
+    <details><summary>Can I open a Parquet file online without Python?</summary><p>Yes. Drop the .parquet file on the viewer. You see the rows in a grid and the column types in the Schema tab. Nothing is installed and nothing is uploaded.</p></details>
+    <details><summary>Does "download=false" protect my files?</summary><p>It hides the download button, which is what most sites want. It is not copy protection: anyone who can view a file in a browser can also save it.</p></details>
+    <details><summary>Do I need the commercial licence?</summary><p>Only for closed-source use. If your project is open source under a GPL-compatible licence, or you use the viewer on localhost, it is free. See <a href="https://github.com/theluckystrike/zovo-doc-viewer/blob/main/COMMERCIAL.md">COMMERCIAL.md</a>.</p></details>
+    <details><summary>Which browsers work?</summary><p>Current Chrome, Edge, Firefox and Safari (16.4 or newer).</p></details>
+  </section>
+</main>
+<footer class="wrap">
+  <h2>Support Zovo</h2>
+  <p>Zovo Doc Viewer is made by <a href="https://github.com/theluckystrike">theluckystrike</a> on GitHub. If it saves you time, you can support the work on <a href="https://github.com/sponsors/theluckystrike">GitHub Sponsors</a> or with <a href="https://www.paypal.com/paypalme/najzzz">PayPal</a>.</p>
+  <p>The same viewers inside VS Code, free:</p>
+  <ul>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.docx-viewer-vscode">DOCX Viewer &amp; ODT Viewer</a>. Previews Word and ODT files with dark mode, an outline and search.</li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.table-viewer-vscode">XLSX Viewer &amp; CSV Preview</a>. Opens CSV, TSV, Excel and Parquet files as a sortable, filterable table.</li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.pdf-viewer-dark">PDF Viewer &amp; Reader</a>. Reads PDFs with a real dark mode, search, an outline and thumbnails.</li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.pptx-slide-viewer">PPTX Viewer &amp; PowerPoint Preview</a>. Shows PowerPoint slides, thumbnails and speaker notes.</li>
+    <li><a href="https://marketplace.visualstudio.com/items?itemName=zovo.zovo-hex-viewer">Hex Viewer &amp; Binary Viewer</a>. Opens files of any size in under a second.</li>
+  </ul>
+  <p>Code: GPL-3.0-or-later or commercial. Sample PDF data: USGS earthquake catalog (public domain). Other samples were made for this demo.</p>
+</footer>
+<script type="module">
+import './dist/zovo-doc-viewer.js';
+const v = document.getElementById('viewer');
+const info = document.getElementById('info');
+const q = new URLSearchParams(location.search);
+const theme = document.getElementById('theme');
+function setTheme(t) {
+  v.setAttribute('theme', t);
+  theme.value = t;
+  const dark = t === 'dark' || (t === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches);
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+}
+theme.addEventListener('change', () => setTheme(theme.value));
+setTheme(q.get('theme') || 'auto');
+const dl = document.getElementById('dl');
+function setDl(on) { dl.setAttribute('aria-pressed', String(on)); dl.textContent = 'Download button: ' + (on ? 'on' : 'off'); if (on) v.removeAttribute('download'); else v.setAttribute('download', 'false'); }
+dl.addEventListener('click', () => setDl(dl.getAttribute('aria-pressed') !== 'true'));
+if (q.get('download') === 'false') setDl(false);
+if (q.has('test')) v.setAttribute('license-test', '');
+if (q.get('key')) v.setAttribute('license-key', q.get('key'));
+window.zdvEvents = [];
+for (const t of ['load', 'error', 'page']) v.addEventListener(t, (e) => window.zdvEvents.push({ type: t, detail: e.detail }));
+v.addEventListener('load', (e) => { const d = e.detail; info.textContent = `${d.name || 'File'}: ${d.format.toUpperCase()}, ${(d.size / 1024).toFixed(0)} KB${d.pages > 1 ? ', ' + d.pages + ' pages or sheets' : ''}. Read in your browser, not uploaded.`; });
+v.addEventListener('error', (e) => { info.textContent = e.detail.message; });
+for (const b of document.querySelectorAll('[data-sample]')) b.addEventListener('click', () => v.load(b.dataset.sample));
+document.getElementById('pick').addEventListener('change', (e) => { const f = e.target.files[0]; if (f) v.load(f); });
+const drop = document.getElementById('drop');
+for (const t of ['dragenter', 'dragover']) drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.add('over'); });
+for (const t of ['dragleave', 'drop']) drop.addEventListener(t, (e) => { e.preventDefault(); drop.classList.remove('over'); });
+drop.addEventListener('drop', (e) => { const f = e.dataTransfer.files[0]; if (f) v.load(f); });
+v.load(q.get('file') || 'samples/report.docx');
+</script>
+</body>
+</html>

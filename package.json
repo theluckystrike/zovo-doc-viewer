@@ -1,0 +1,65 @@
+{
+  "name": "zovo-doc-viewer",
+  "version": "0.1.0",
+  "description": "View DOCX, XLSX, CSV, Parquet, PDF and PPTX files in the browser with one web component. Files never leave the page.",
+  "license": "GPL-3.0-or-later",
+  "type": "module",
+  "main": "dist/zovo-doc-viewer.js",
+  "module": "dist/zovo-doc-viewer.js",
+  "browser": "dist/zovo-doc-viewer.js",
+  "unpkg": "dist/zovo-doc-viewer.iife.js",
+  "jsdelivr": "dist/zovo-doc-viewer.iife.js",
+  "files": [
+    "dist",
+    "COMMERCIAL.md",
+    "THIRD-PARTY-NOTICES.md",
+    "PPTX.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "docx viewer",
+    "xlsx viewer",
+    "pdf viewer",
+    "parquet viewer",
+    "csv viewer",
+    "pptx viewer",
+    "web component",
+    "document viewer",
+    "office viewer",
+    "custom element"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theluckystrike/zovo-doc-viewer.git"
+  },
+  "homepage": "https://theluckystrike.github.io/zovo-doc-viewer/",
+  "bugs": "https://github.com/theluckystrike/zovo-doc-viewer/issues",
+  "funding": [
+    {
+      "type": "github",
+      "url": "https://github.com/sponsors/theluckystrike"
+    },
+    {
+      "type": "paypal",
+      "url": "https://www.paypal.com/paypalme/najzzz"
+    }
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.js"
+  },
+  "dependencies": {
+    "@noble/ed25519": "3.2.0",
+    "@noble/hashes": "2.4.0",
+    "docx-preview": "0.4.1",
+    "hyparquet": "1.32.0",
+    "hyparquet-compressors": "1.1.3",
+    "jszip": "3.10.2",
+    "pdfjs-dist": "5.7.284",
+    "pptx-preview": "1.0.7",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.2"
+  }
+}
