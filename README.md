@@ -165,3 +165,9 @@ The same viewers inside VS Code, free:
 - [PDF Viewer & Reader](https://marketplace.visualstudio.com/items?itemName=zovo.pdf-viewer-dark). Reads PDFs with a real dark mode, search, an outline and thumbnails.
 - [PPTX Viewer & PowerPoint Preview](https://marketplace.visualstudio.com/items?itemName=zovo.pptx-slide-viewer). Shows PowerPoint slides, thumbnails and speaker notes.
 - [Hex Viewer & Binary Viewer](https://marketplace.visualstudio.com/items?itemName=zovo.zovo-hex-viewer). Opens files of any size in under a second.
+
+## More from zovo
+
+- [All free zovo VS Code extensions](https://marketplace.visualstudio.com/publishers/zovo) — file viewers, database clients, formatters. Offline, no telemetry, no sign-up.
+- [Full MCP server catalogue](https://theluckystrike.github.io/mcp/) — local-first MCP servers for back-office work: invoices, VAT, PDFs, spreadsheets, payroll.
+- [Hosted no-install MCP endpoints](https://mcp.zovo.one) — paste a URL in Claude / Cursor, nothing to install.
